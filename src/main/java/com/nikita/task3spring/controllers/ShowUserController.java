@@ -27,20 +27,16 @@ public class ShowUserController {
 
     @PostMapping("/shown")
     public String showUser(@RequestParam Map<String, String> allParams, Model model) {
-        String email = allParams.get(Constants.EMAIL);
-        String command = allParams.get(Constants.SHOW_ALL_USERS);
         List<User> listUser;
-        List<User> listUsers;
-        if(command == null) {
-            listUser = service.findUserByEmail(email);
-            model.addAttribute(Constants.USER, listUser);
+        if(allParams.get(Constants.SHOW_ALL_USERS) == null) {
+            listUser = service.findUserByEmail(allParams.get(Constants.EMAIL));
+            model.addAttribute(Constants.USER, service.findUserByEmail(allParams.get(Constants.EMAIL)));
             if (listUser.isEmpty()) {
                 model.addAttribute(Constants.NO_SUCH_USER, Constants.NO_SUCH_USER_MESSAGE);
                 return Constants.SHOW_JSP;
             }
         } else {
-            listUsers = service.findAllUsers();
-            model.addAttribute(Constants.USER, listUsers);
+            model.addAttribute(Constants.USER, service.findAllUsers());
         }
         return Constants.USER_BY_EMAIL_JSP;
     }

@@ -33,8 +33,7 @@ public class DeleteUserController {
         String adminPassword = allParams.get(Constants.ADMIN_PASSWORD);
 
         if (adminPassword == null) {
-            int result = service.deleteUser(user);
-            if (result > 0) {
+            if (service.deleteUser(user) > 0) {
                 model.addAttribute(Constants.USER_DELETED, Constants.USER_DELETED_MESSAGE);
                 return Constants.INDEX_JSP;
             } else {
@@ -42,8 +41,7 @@ public class DeleteUserController {
                 return Constants.DELETE_JSP;
             }
         } else if (adminPassword.equals(Constants.ADMIN_PASSWORD_VALUE)){
-            int result = service.deleteAllUsers();
-            if (result > 0) {
+            if (service.deleteAllUsers() > 0) {
                 model.addAttribute(Constants.ALL_USERS_DELETED, Constants.ALL_USERS_DELETED_MESSAGE);
                 return Constants.INDEX_JSP;
             } else {

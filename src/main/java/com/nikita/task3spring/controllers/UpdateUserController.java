@@ -33,8 +33,7 @@ public class UpdateUserController {
         String newEmail = allParams.get(Constants.NEW_EMAIL);
         String newPassword = allParams.get(Constants.NEW_PASSWORD);
 
-        int result = service.updateUser(user, newEmail, newPassword);
-        if (result > 0) {
+        if (service.updateUser(user, newEmail, newPassword) > 0) {
             model.addAttribute(Constants.USER_UPDATED, Constants.USER_UPDATED_MESSAGE);
             return Constants.INDEX_JSP;
         } else {

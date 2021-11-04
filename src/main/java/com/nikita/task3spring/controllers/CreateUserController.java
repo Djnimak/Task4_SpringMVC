@@ -35,8 +35,7 @@ public class CreateUserController {
         user.setGender(allParams.get(Constants.GENDER));
         user.setAge(Integer.parseInt(allParams.get(Constants.AGE)));
 
-        int result = service.createUser(user);
-        if (result > 0) {
+        if (service.createUser(user) > 0) {
             model.addAttribute(Constants.USER_CREATED, Constants.USER_CREATED_MESSAGE);
             return Constants.INDEX_JSP;
         } else {
