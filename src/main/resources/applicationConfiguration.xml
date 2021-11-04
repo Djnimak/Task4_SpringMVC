@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:property-placeholder location="application.properties"/>
+    <bean name="createUserController" class="com.nikita.task3spring.controllers.CreateUserController">
+        <constructor-arg index="0" ref="userServiceImpl"/>
+        <constructor-arg index="1" ref="user"/>
+    </bean>
+
+    <bean name="showUserController" class="com.nikita.task3spring.controllers.ShowUserController">
+        <constructor-arg ref="userServiceImpl"/>
+    </bean>
+
+    <bean name="updateUserController" class="com.nikita.task3spring.controllers.UpdateUserController">
+        <constructor-arg index="0" ref="userServiceImpl"/>
+        <constructor-arg index="1" ref="user"/>
+    </bean>
+
+    <bean name="deleteUserController" class="com.nikita.task3spring.controllers.DeleteUserController">
+        <constructor-arg index="0" ref="userServiceImpl"/>
+        <constructor-arg index="1" ref="user"/>
+    </bean>
+
+    <bean id="userServiceImpl" class="com.nikita.task3spring.model.service.UserServiceImpl">
+        <constructor-arg ref="jdbcUserDao"/>
+    </bean>
+
+    <bean id="user" class="com.nikita.task3spring.model.entity.User"/>
+
+    <bean id="jdbcUserDao" class="com.nikita.task3spring.model.dao.impl.JDBCUserDao">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${dbDriver}"/>
+        <property name="url" value="${dbUrl}"/>
+        <property name="username" value="${dbUser}"/>
+        <property name="password" value="${dbPass}"/>
+    </bean>
+</beans>
