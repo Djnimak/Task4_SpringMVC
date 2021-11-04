@@ -2,8 +2,8 @@ package com.nikita.task3spring.controllers;
 
 import com.nikita.task3spring.constants.Constants;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -11,12 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class WelcomeController {
 
 
-    @RequestMapping("/")
+    @RequestMapping({"/", "", "/index"})
     public String welcome() {
         return "index";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping(value = "/")
     public ModelAndView welcomePage() {
         return new ModelAndView(Constants.INDEX_JSP);
     }
